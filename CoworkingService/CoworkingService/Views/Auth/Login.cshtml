@@ -1,0 +1,44 @@
+﻿@model LoginViewModel
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<form asp-controller="Auth" asp-action="Login" method="post">
+
+    <table align="center">
+        <tr>
+            <td>
+                <label class="mb-2 mt-2 lead">
+                    @Localizer["Username"]
+                </label>
+            </td>
+            <td>
+                <input class="mb-2 mt-2" asp-for="UserName" />
+                <span class="text-danger" asp-validation-for="UserName"></span>
+
+            </td>
+
+        </tr>
+        <tr>
+            <td class="mb-2 mt-2 lead">
+                <label>
+                    @Localizer["Password"]
+                </label>
+            </td>
+            <td>
+                <input class="mb-2 mt-2" asp-for="Password" />
+            </td>
+
+        </tr>
+        <tr>
+            <td class="mb-2 mt-2">
+                <input class="btn btn-success mb-2 mt-2" type="submit" value="@Localizer["Submit"]" />
+            </td>
+            <td>
+                <a class="btn btn-success mb-2 mt-2" asp-controller="Auth" asp-action="Register">@Localizer["Register"]</a>
+            </td>
+
+        </tr>
+    </table>
+</form>
