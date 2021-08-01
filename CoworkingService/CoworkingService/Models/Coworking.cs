@@ -31,7 +31,7 @@ namespace CoworkingService.Models
         [Required]
         [Range(0,Double.MaxValue)]
         public decimal Cost { get; set; }
-        public bool IsOpen { get; set; }
+        public bool IsOpen { get; set; } = true;
         public string Description { get; set; }
         public string[] Photos { get; set; }
 

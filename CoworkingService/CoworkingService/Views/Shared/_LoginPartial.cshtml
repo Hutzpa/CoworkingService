@@ -4,15 +4,20 @@
 
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@{ 
+    var userName = UserManager.GetUserAsync(User).GetAwaiter().GetResult().Name;
+}
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@Localizer["Hello"] @User.Identity.Name!</a>
+            <a class="nav-link text-dark" asp-controller="User" asp-action="Profile">@Localizer["Hello"] @userName!</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Auth" asp-action="Logout">@Localizer["Logout"]</a>
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">@Localizer["Logout"]</button>
+            </form>
         </li>
     }
     else
@@ -25,4 +30,5 @@
         </li>
     }
 </ul>
+
 

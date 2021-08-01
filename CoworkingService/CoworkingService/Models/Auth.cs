@@ -50,5 +50,7 @@ namespace CoworkingService.Models
         [DataType(DataType.Password)]
         [Required]
         public string ConfirmPassword { get; set; }
+
+        public string Role { get; set; }
     }
 }

@@ -59,6 +59,23 @@
             <tr>
                 <td>
                     <label class="mb-2 mt-2 lead">
+                        @Localizer["YourRole"]
+                    </label>
+                </td>
+                <td>
+                    <select asp-for="Role">
+                        <option value="@RoleConstants.AdminUser">
+                            Coworking owner
+                        </option>
+                        <option value="@RoleConstants.RegularUser">
+                            Regular user
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="mb-2 mt-2 lead">
                         @Localizer["Password"]
                     </label>
                 </td>

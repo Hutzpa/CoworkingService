@@ -1,3 +1,4 @@
+using CoworkingService.Constants;
 using CoworkingService.Data;
 using CoworkingService.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -26,13 +27,10 @@ namespace CoworkingService
 
             context.Database.EnsureCreated();
 
-            if (roleMgr.Roles.Any())
-            {
-                var regularUser = new IdentityRole("RegularUser");
-                var coworkingAdmin = new IdentityRole("CoworkingAdmin");
-                roleMgr.CreateAsync(regularUser).GetAwaiter().GetResult();
-                roleMgr.CreateAsync(coworkingAdmin).GetAwaiter().GetResult();
-            }
+            var regularUser = new IdentityRole(RoleConstants.RegularUser);
+            var coworkingAdmin = new IdentityRole(RoleConstants.AdminUser);
+            roleMgr.CreateAsync(regularUser).GetAwaiter().GetResult();
+            roleMgr.CreateAsync(coworkingAdmin).GetAwaiter().GetResult();
 
             host.Run();
         }

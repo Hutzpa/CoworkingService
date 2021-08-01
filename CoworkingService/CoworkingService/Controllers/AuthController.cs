@@ -1,8 +1,10 @@
-﻿using CoworkingService.Data;
+﻿using CoworkingService.Constants;
+using CoworkingService.Data;
 using CoworkingService.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +16,19 @@ namespace CoworkingService.Controllers
     public class AuthController : Controller
     {
         private UserManager<User> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
         private ApplicationDbContext _context;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext context)
+        public AuthController(UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            ApplicationDbContext context,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -55,27 +62,45 @@ namespace CoworkingService.Controllers
         public IActionResult Register() => View(new RegisterViewModel());
 
         [HttpPost]
-        public async Task<IActionResult> RegisterAsync(RegisterViewModel rvm)
+        public async Task<IActionResult> RegisterAsync(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(rvm);
+                return View(model);
 
-            var User = new User
+            var user = new User
             {
-                UserName = rvm.Email,
-                Name = rvm.Name,
-                Email = rvm.Email,
+                UserName = model.Email,
+                Name = model.Name,
+                Surname = model.Surname,
+                Phone = model.Phone,
+                Email = model.Email,
             };
 
-            var result = await _userManager.CreateAsync(User, rvm.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(User, false);
+                switch (model.Role)
+                {
+                    case RoleConstants.AdminUser:
+                        {
+                            await _userManager.AddToRoleAsync(user, RoleConstants.AdminUser);
+                            break;
+                        }
+                    case RoleConstants.RegularUser:
+                        {
+                            await _userManager.AddToRoleAsync(user, RoleConstants.RegularUser);
+                            break;
+                        }
+                }
+                await _signInManager.SignInAsync(user, false);
                 return RedirectToAction("Index", "Home");
             }
-
-            return BadRequest();
+            else
+            {
+                ModelState.AddModelError("Password", "Password is too weak");
+                return View(model);
+            }
         }
 
         [AcceptVerbs("Get", "Post")]
