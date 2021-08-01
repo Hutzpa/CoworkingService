@@ -83,3 +83,11 @@ E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\Cowo
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\ref\CoworkingService.dll
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\CoworkingService.pdb
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\CoworkingService.genruntimeconfig.cache
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Auth\Login.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Auth\Register.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Shared\_SelectLanguagePartial.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Coworking\Coworking.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Coworking\CoworkingsList.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Coworking\CreateCoworking.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Shared\DisplayCoworkingList.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Shared\DisplayPhotoPartial.cshtml.g.cs

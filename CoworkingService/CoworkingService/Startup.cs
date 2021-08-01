@@ -45,6 +45,7 @@ namespace CoworkingService
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            
             //Локализация
             services.AddControllersWithViews().AddViewLocalization();
             services.AddLocalization(options => options.ResourcesPath = "Resources");

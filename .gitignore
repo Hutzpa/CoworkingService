@@ -1,0 +1,7 @@
+
+*.pdb
+*.cache
+*.txt
+*.g.cs
+*.csprojAssemblyReference.cache
+*.g.cs

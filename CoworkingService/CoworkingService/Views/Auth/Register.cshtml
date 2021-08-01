@@ -23,6 +23,30 @@
             <tr>
                 <td>
                     <label class="mb-2 mt-2 lead">
+                        @Localizer["Surname"]
+                    </label>
+                </td>
+                <td>
+                    <input class="form-control" asp-for="Surname" />
+                    <span class="text-danger" asp-validation-for="Surname"></span>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="mb-2 mt-2 lead">
+                        @Localizer["Phone"]
+                    </label>
+                </td>
+                <td>
+                    <input class="form-control" asp-for="Phone" />
+                    <span class="text-danger" asp-validation-for="Phone"></span>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="mb-2 mt-2 lead">
                         @Localizer["Email"]
                     </label>
                 </td>

@@ -28,17 +28,17 @@ namespace CoworkingService.Controllers
         public IActionResult Login() => View(new LoginViewModel());
 
         [HttpPost]
-        public async Task<IActionResult> LoginAsync(LoginViewModel lvm)
+        public async Task<IActionResult> LoginAsync(LoginViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(lvm);
+                return View(model);
 
-            var res = await _signInManager.PasswordSignInAsync(lvm.UserName, lvm.Password, true, false);
+            var res = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
 
             if (!res.Succeeded)
             {
                 ModelState.AddModelError("UserName", "Incorrect username or password");
-                return View(lvm);
+                return View(model);
             }
 
             return RedirectToAction("Index", "Home");
@@ -81,8 +81,6 @@ namespace CoworkingService.Controllers
         [AcceptVerbs("Get", "Post")]
         [AllowAnonymous]
         public async Task<IActionResult> IsEmailInUse(string email) => Json(data: await _userManager.FindByEmailAsync(email) == null);
-
-        public IActionResult Homepage() => View();
 
 
     }
