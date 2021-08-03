@@ -2,6 +2,7 @@
 using CoworkingService.Data;
 using CoworkingService.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,7 @@ namespace CoworkingService.Controllers
 
             if (model.Id == 0)
             {
+                model.Owner = await _userManager.GetUserAsync(User);
                 await dbContext.Coworkings.AddAsync(model);
                 await dbContext.SaveChangesAsync();
             }
@@ -73,14 +75,19 @@ namespace CoworkingService.Controllers
             return View(coworking);
         }
 
-        public IActionResult CoworkigngsList()
+        public async Task<IActionResult> CoworkigngsListAsync()
         {
-            var user = _userManager.GetUserAsync(User);
-            var coworkings = dbContext.
-            if(User.IsInRole(RoleConstants.AdminUser))
-            return View(new CoworkingListViewModel{
-                Coworkings = 
-            })
+            var user = await _userManager.GetUserAsync(User);
+            var coworking = new List<Coworking>();
+            if (User.IsInRole(RoleConstants.AdminUser))
+                coworking = await dbContext.Coworkings.Where(o => o.OwnerId == user.Id).ToListAsync();
+            else
+                coworking = await dbContext.UsersInCoworkings.Where(o => o.UserId == user.Id).Select(o => o.Coworking).ToListAsync();
+            return View(new CoworkingListViewModel
+            {
+                Coworkings = coworking
+                
+            });
         }
 
         [Authorize(Roles = RoleConstants.AdminUser)]
@@ -110,9 +117,15 @@ namespace CoworkingService.Controllers
                 return RedirectToAction("Index", "Home");
 
             dbContext.Coworkings.Remove(coworking);
-            return RedirectToAction()
+            return RedirectToAction();
         }
         #endregion
 
+
+
+        public IActionResult AddPhotoToCoworking(List<IFormFile> photos)
+        {
+            return null;
+        }
     }
 }

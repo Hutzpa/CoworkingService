@@ -34,6 +34,13 @@ using Microsoft.Extensions.Configuration;
 #line hidden
 #nullable disable
 #nullable restore
+#line 4 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\_ViewImports.cshtml"
+using CoworkingService.Constants;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 1 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\Shared\_LoginPartial.cshtml"
 using Microsoft.AspNetCore.Identity;
 
@@ -48,7 +55,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5a633b3bc56540821b9d841c65fb359697d7023c", @"/Views/Shared/_LoginPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b93e56b16bf0e7620ac981c3986f7800bde18c6d", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2ca162f05eb3c90bbc52d7ce5ec6d658db544b6e", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__LoginPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("nav-link text-dark"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -105,7 +112,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line hidden
 #nullable disable
             WriteLiteral("        <li class=\"nav-item\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a633b3bc56540821b9d841c65fb359697d7023c7664", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a633b3bc56540821b9d841c65fb359697d7023c7883", async() => {
 #nullable restore
 #line 15 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\Shared\_LoginPartial.cshtml"
                                                                                 Write(Localizer["Hello"]);
@@ -139,7 +146,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a633b3bc56540821b9d841c65fb359697d7023c9815", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a633b3bc56540821b9d841c65fb359697d7023c10034", async() => {
                 WriteLiteral("\r\n                <button type=\"submit\" class=\"nav-link btn btn-link text-dark\">");
 #nullable restore
 #line 19 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\Shared\_LoginPartial.cshtml"
@@ -193,7 +200,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line hidden
 #nullable disable
             WriteLiteral("        <li class=\"nav-item\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a633b3bc56540821b9d841c65fb359697d7023c13414", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a633b3bc56540821b9d841c65fb359697d7023c13634", async() => {
 #nullable restore
 #line 26 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\Shared\_LoginPartial.cshtml"
                                                                                  Write(Localizer["Register"]);
@@ -218,7 +225,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a633b3bc56540821b9d841c65fb359697d7023c15187", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a633b3bc56540821b9d841c65fb359697d7023c15407", async() => {
 #nullable restore
 #line 29 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\Shared\_LoginPartial.cshtml"
                                                                               Write(Localizer["Login"]);

@@ -35,14 +35,17 @@ namespace CoworkingService.Models
         public string Description { get; set; }
         public string[] Photos { get; set; }
 
+
+        public string OwnerId { get; set; }
+        public User Owner { get; set; }
+
         public List<Room> Rooms { get; set; }
+        public List<UserInCoworking> InCoworking { get; set; }
     }
 
     public class CoworkingListViewModel
     {
         public List<Coworking> Coworkings { get; set; }
-
-        public bool IsAdminViewing { get; set; }
     }
 
    
