@@ -9,10 +9,10 @@ namespace CoworkingService.Models
     public class UserInCoworking
     {
         public int CoworkingId { get; set; }
-        public Coworking Coworking { get; set; }
+        public virtual Coworking Coworking { get; set; }
 
         public string UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         public DateTime TotalTimeSpended { get; set; }
 

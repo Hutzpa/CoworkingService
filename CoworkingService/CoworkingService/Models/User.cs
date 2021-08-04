@@ -15,8 +15,8 @@ namespace CoworkingService.Models
         public string Phone { get; set; }
         public string[] Photo { get; set; }  
 
-        public List<Coworking> Coworkings { get; set; }
-        public List<UserInCoworking> InCoworkings { get; set; }
+        public virtual List<Coworking> Coworkings { get; set; }
+        public virtual List<UserInCoworking> InCoworkings { get; set; }
     }
 
 

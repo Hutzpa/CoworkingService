@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+
 
 namespace CoworkingService.Controllers
 {
@@ -19,12 +21,17 @@ namespace CoworkingService.Controllers
     {
         private ApplicationDbContext dbContext;
         private UserManager<User> _userManager;
+        private IConfiguration _config;
+        private readonly string DomainName;
 
-        public CoworkingController(ApplicationDbContext dbContext, 
-            UserManager<User> _userManager)
+
+        public CoworkingController(ApplicationDbContext dbContext,
+                UserManager<User> _userManager, IConfiguration config)
         {
             this.dbContext = dbContext;
             this._userManager = _userManager;
+            _config = config;
+            DomainName = _config.GetSection("Host").GetSection("Address").Value;   
         }
 
         #region CRUD
@@ -45,8 +52,6 @@ namespace CoworkingService.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            //Добавить поле owner
-
             if (model.Id == 0)
             {
                 model.Owner = await _userManager.GetUserAsync(User);
@@ -61,7 +66,27 @@ namespace CoworkingService.Controllers
             return RedirectToAction("Coworking", new { id = model.Id });
         }
 
+        //[Authorize(Roles = RoleConstants.AdminUser)]
+        public async Task<IActionResult> CloseCoworkingAsync(int id, string whereCameFrom)
+        {
+            if (id == 0)
+                return RedirectToAction("Index", "Home");
 
+            var coworking = await dbContext.Coworkings.FirstOrDefaultAsync(o => o.Id == id);
+            if (coworking == null)
+                return RedirectToAction("Index", "Home");
+
+            var queryString = Request.QueryString;
+            coworking.IsOpen = !coworking.IsOpen;
+            dbContext.Coworkings.Update(coworking);
+            await dbContext.SaveChangesAsync();
+            if (String.IsNullOrEmpty(whereCameFrom))
+                return RedirectToAction("Coworking", new { id = id });
+            return Redirect(DomainName + whereCameFrom);
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> CoworkingAsync(int id)
         {
             if (id == 0)
@@ -75,7 +100,7 @@ namespace CoworkingService.Controllers
             return View(coworking);
         }
 
-        public async Task<IActionResult> CoworkigngsListAsync()
+        public async Task<IActionResult> CoworkingsListAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             var coworking = new List<Coworking>();
@@ -86,24 +111,10 @@ namespace CoworkingService.Controllers
             return View(new CoworkingListViewModel
             {
                 Coworkings = coworking
-                
             });
         }
 
-        [Authorize(Roles = RoleConstants.AdminUser)]
-        public async Task<IActionResult> CloseCoworkingAsync(int id)
-        {
-            if (id == 0)
-                return RedirectToAction("Index", "Home");
 
-            var coworking = await dbContext.Coworkings.FirstOrDefaultAsync(o => o.Id == id);
-            if (coworking == null)
-                return RedirectToAction("Index", "Home");
-
-            coworking.IsOpen = false;
-            dbContext.Coworkings.Update(coworking);
-            return RedirectToAction("Coworking", new { id = id });
-        }
 
         [Authorize(Roles = RoleConstants.AdminUser)]
         public async Task<IActionResult> DeleteCoworkingAsync(int id)
@@ -117,6 +128,8 @@ namespace CoworkingService.Controllers
                 return RedirectToAction("Index", "Home");
 
             dbContext.Coworkings.Remove(coworking);
+            await dbContext.SaveChangesAsync();
+
             return RedirectToAction();
         }
         #endregion

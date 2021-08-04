@@ -11,16 +11,16 @@ namespace CoworkingService.Models
         public int Id { get; set; }
 
         public int CoworkingId { get; set; }
-        public Coworking Coworking { get; set; }
+        public virtual Coworking Coworking { get; set; }
         public int SeatsCount { get; set; }
-        public List<RoomOccupied> BusyTime { get; set; }
+        public virtual List<RoomOccupied> BusyTime { get; set; }
     }
 
     public class RoomOccupied
     {
         public int Id { get; set; }
 
-        public Room Room { get; set; }
+        public virtual Room Room { get; set; }
         public int RoomId { get; set; }
 
         public DateTime From { get; set; }

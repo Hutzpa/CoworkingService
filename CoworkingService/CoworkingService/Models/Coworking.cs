@@ -37,15 +37,16 @@ namespace CoworkingService.Models
 
 
         public string OwnerId { get; set; }
-        public User Owner { get; set; }
+        public virtual User Owner { get; set; }
 
-        public List<Room> Rooms { get; set; }
-        public List<UserInCoworking> InCoworking { get; set; }
+        public virtual List<Room> Rooms { get; set; }
+        public virtual List<UserInCoworking> InCoworking { get; set; }
     }
 
     public class CoworkingListViewModel
     {
         public List<Coworking> Coworkings { get; set; }
+        public string WhereRedirectBack { get; set; }
     }
 
    

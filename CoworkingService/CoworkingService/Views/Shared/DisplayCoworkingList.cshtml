@@ -5,16 +5,39 @@
     <thead>
         <tr>
             <th>
+                Name
             </th>
-            <th></th>
+            <th>
+                Cost
+            </th>
+            <th>
+                Is active
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var cow in Model.Coworkings)
-            {
-                <tr>
-
-                </tr>
-            }
+        @foreach (var cow in Model.Coworkings)
+        {
+            <tr>
+                <td>
+                    @cow.Name
+                </td>
+                <td>
+                    @cow.Cost
+                </td>
+                <td>
+                    @cow.IsOpen
+                </td>
+                <td>
+                    <a asp-controller="Coworking" asp-action="CreateCoworking" asp-route-id="@cow.Id">Update</a>
+                </td>
+                <td>
+                    <a asp-controller="Coworking" asp-action="CloseCoworking" asp-route-id="@cow.Id" asp-route-whereCameFrom="@Model.WhereRedirectBack">Close</a>
+                </td>
+                <td>
+                    <a asp-controller="Coworking" asp-action="DeleteCoworking" asp-route-id="@cow.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

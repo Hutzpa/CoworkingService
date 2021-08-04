@@ -1,4 +1,6 @@
 ﻿@model CoworkingListViewModel
 
-
+@{ 
+    Model.WhereRedirectBack = "Coworking/CoworkingsList";
+}
 @Html.RenderPartialAsync("DisplayCoworkingList", Model);
