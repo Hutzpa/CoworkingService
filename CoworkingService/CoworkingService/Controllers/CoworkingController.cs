@@ -158,5 +158,12 @@ namespace CoworkingService.Controllers
             await dbContext.SaveChangesAsync();
             return RedirectToAction("Coworking", new { id = coworkingId });
         }
+
+
+        public async Task<IActionResult> SearchResultAsync(string query)
+        {
+            var searchResult = await dbContext.Coworkings.Where(o => o.Name.ToLower().Contains(query) || o.Description.ToLower().Contains(query) && o.IsOpen).ToListAsync();
+            return View(searchResult);
+        }
     }
 }

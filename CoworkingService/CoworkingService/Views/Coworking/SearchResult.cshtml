@@ -1,0 +1,7 @@
+﻿@model List<Coworking>
+
+@{
+    var whereRedirectBack = "Coworking/SearchResult"+Context.Request.QueryString;
+}
+
+@await Html.PartialAsync("DisplayCoworkingList", new CoworkingListViewModel { Coworkings = Model, WhereRedirectBack = whereRedirectBack }) 

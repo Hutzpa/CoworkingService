@@ -22,7 +22,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark"  asp-controller="Coworking" asp-action="CoworkingsList">COw list</a>
+                            <a class="nav-link text-dark" asp-controller="Coworking" asp-action="CoworkingsList">COw list</a>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-controller="Coworking" asp-action="SearchResult">
+                                <input type="text" name="query" />
+                                
+                            </form>
+                        </li>
+
+                        <li class="nav-item">
+                            <partial name="_SelectLanguagePartial" />
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
