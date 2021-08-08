@@ -68,6 +68,7 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
+*.cache
 
 # Chutzpah Test files
 _Chutzpah*
@@ -232,3 +233,10 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+*.pdb
+*.pdb
+*.png
+*.cache
+CoworkingService/CoworkingService/obj/Debug/net5.0/CoworkingService.csprojAssemblyReference.cache
+CoworkingService/.vs/CoworkingService/v16/.suo
+*.jpg

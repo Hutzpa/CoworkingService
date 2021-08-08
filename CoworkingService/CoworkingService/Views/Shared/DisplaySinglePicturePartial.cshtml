@@ -1,0 +1,17 @@
+﻿@model string
+@inject IConfiguration _config
+
+@{
+    string path = _config.GetSection("Path").GetSection("GetImages").Value;
+}
+
+@if (String.IsNullOrEmpty(Model))
+{
+    var imgPath = $"{path}/empty.png";
+    <img src="@imgPath" class="rounded" height="200" width="200" />
+}
+else
+{
+    var imgPath = $"{path}/{Model}";
+    <img src="@imgPath" class="rounded" height="200" width="200" />
+}

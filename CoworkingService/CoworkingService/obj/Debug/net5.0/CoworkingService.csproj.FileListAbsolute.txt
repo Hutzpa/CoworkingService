@@ -93,3 +93,6 @@ E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\Cowo
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Shared\DisplayPhotoPartial.cshtml.g.cs
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\bin\Debug\net5.0\Castle.Core.dll
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Proxies.dll
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Shared\DisplaySinglePicturePartial.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Room\Room.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Shared\CoworkingRoomsPartial.cshtml.g.cs

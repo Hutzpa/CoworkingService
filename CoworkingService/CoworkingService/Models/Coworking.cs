@@ -8,15 +8,7 @@ using System.Threading.Tasks;
 
 namespace CoworkingService.Models
 {
-    public enum CoworkingType
-    {
-        Office,Street,Kids,Crafting,Art
-    }
 
-    public enum CoworkingPaymentType
-    {
-        Hour,Day,Week
-    }
     public class Coworking
     {
         public int Id { get; set; }
@@ -33,8 +25,9 @@ namespace CoworkingService.Models
         public decimal Cost { get; set; }
         public bool IsOpen { get; set; } = true;
         public string Description { get; set; }
-        public string[] Photos { get; set; }
 
+
+        public virtual List<Picture> Photos { get; set; }
 
         public string OwnerId { get; set; }
         public virtual User Owner { get; set; }
@@ -43,6 +36,15 @@ namespace CoworkingService.Models
         public virtual List<UserInCoworking> InCoworking { get; set; }
     }
 
+    public enum CoworkingType
+    {
+        Office, Street, Kids, Crafting, Art
+    }
+
+    public enum CoworkingPaymentType
+    {
+        Hour, Day, Week
+    }
     public class CoworkingListViewModel
     {
         public List<Coworking> Coworkings { get; set; }

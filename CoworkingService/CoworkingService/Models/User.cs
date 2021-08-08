@@ -13,10 +13,12 @@ namespace CoworkingService.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Phone { get; set; }
-        public string[] Photo { get; set; }  
 
+
+        public virtual List<Picture> Photos { get; set; }  
         public virtual List<Coworking> Coworkings { get; set; }
         public virtual List<UserInCoworking> InCoworkings { get; set; }
+
     }
 
 

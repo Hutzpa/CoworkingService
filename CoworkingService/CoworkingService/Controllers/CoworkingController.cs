@@ -12,7 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-
+using System.IO;
+using CoworkingService.Helpers;
 
 namespace CoworkingService.Controllers
 {
@@ -23,15 +24,16 @@ namespace CoworkingService.Controllers
         private UserManager<User> _userManager;
         private IConfiguration _config;
         private readonly string DomainName;
-
+        private readonly IFileSaveHelper _fileSaveHelper;
 
         public CoworkingController(ApplicationDbContext dbContext,
-                UserManager<User> _userManager, IConfiguration config)
+                UserManager<User> _userManager, IConfiguration config, IFileSaveHelper fileSaveHelper)
         {
             this.dbContext = dbContext;
             this._userManager = _userManager;
             _config = config;
-            DomainName = _config.GetSection("Host").GetSection("Address").Value;   
+            DomainName = _config.GetSection("Host").GetSection("Address").Value;
+            _fileSaveHelper = fileSaveHelper;
         }
 
         #region CRUD
@@ -130,15 +132,31 @@ namespace CoworkingService.Controllers
             dbContext.Coworkings.Remove(coworking);
             await dbContext.SaveChangesAsync();
 
-            return RedirectToAction();
+            return RedirectToAction("CoworkingsList" );
         }
         #endregion
 
 
 
-        public IActionResult AddPhotoToCoworking(List<IFormFile> photos)
+        [HttpPost("FileUpload")]
+        public async Task<IActionResult> UploadPhotosCoworking(List<IFormFile> files,int coworkingId)
         {
-            return null;
+            if (files == null || files.Count == 0)
+                return Content("file not selected");
+            
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    dbContext.Pictures.Add(new Picture
+                    {
+                        Path = await _fileSaveHelper.SaveImage(formFile),
+                        CoworkingId = coworkingId,
+                    });
+                }
+            }
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction("Coworking", new { id = coworkingId });
         }
     }
 }

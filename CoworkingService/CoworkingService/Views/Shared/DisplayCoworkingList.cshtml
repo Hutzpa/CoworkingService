@@ -16,26 +16,30 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var cow in Model.Coworkings)
+        @foreach (var coworking in Model.Coworkings)
         {
-            <tr>
+            var rowStyle = coworking.IsOpen ? "table-light" : "table-dark";
+
+            <tr class=@rowStyle>
                 <td>
-                    @cow.Name
+                    <a asp-controller="Coworking" asp-action="Coworking" asp-route-id="@coworking.Id">
+                        @coworking.Name
+                    </a>
                 </td>
                 <td>
-                    @cow.Cost
+                    @coworking.Cost
                 </td>
                 <td>
-                    @cow.IsOpen
+                    @coworking.IsOpen
                 </td>
                 <td>
-                    <a asp-controller="Coworking" asp-action="CreateCoworking" asp-route-id="@cow.Id">Update</a>
+                    <a asp-controller="Coworking" asp-action="CreateCoworking" asp-route-id="@coworking.Id">Update</a>
                 </td>
                 <td>
-                    <a asp-controller="Coworking" asp-action="CloseCoworking" asp-route-id="@cow.Id" asp-route-whereCameFrom="@Model.WhereRedirectBack">Close</a>
+                    <a asp-controller="Coworking" asp-action="CloseCoworking" asp-route-id="@coworking.Id" asp-route-whereCameFrom="@Model.WhereRedirectBack">Open or close</a>
                 </td>
                 <td>
-                    <a asp-controller="Coworking" asp-action="DeleteCoworking" asp-route-id="@cow.Id">Delete</a>
+                    <a asp-controller="Coworking" asp-action="DeleteCoworking" asp-route-id="@coworking.Id">Delete</a>
                 </td>
             </tr>
         }

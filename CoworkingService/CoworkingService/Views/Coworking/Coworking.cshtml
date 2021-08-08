@@ -1,3 +1,26 @@
-﻿@model Coworking 
+﻿@model Coworking
 
 @{await Html.RenderPartialAsync("DisplayPhotoPartial", Model.Photos);}
+
+<form method="post" enctype="multipart/form-data" asp-controller="Coworking" asp-action="UploadPhotosCoworking" asp-route-coworkingId="@Model.Id">
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Upload photos of your coworking</p>
+            <input type="file" name="files" multiple accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Upload" />
+        </div>
+    </div>
+</form>
+
+
+<p>Add new room</p>
+<form asp-controller="Room" asp-action="AddRoom" asp-route-coworkingId="@Model.Id">
+    <input name="seatsCount" type="number" min="1" required/>
+    <input type="submit" value="Add room"/>
+</form>
+
+@{await Html.RenderPartialAsync("CoworkingRoomsPartial", Model.Rooms);}

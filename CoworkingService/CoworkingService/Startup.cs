@@ -1,4 +1,5 @@
 using CoworkingService.Data;
+using CoworkingService.Helpers;
 using CoworkingService.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,6 +64,9 @@ namespace CoworkingService
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
+
+
+            services.AddTransient<IFileSaveHelper, FileSaveHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

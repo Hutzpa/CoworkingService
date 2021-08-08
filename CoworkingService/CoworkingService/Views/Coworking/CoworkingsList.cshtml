@@ -1,6 +1,13 @@
 ﻿@model CoworkingListViewModel
 
-@{ 
+@{
     Model.WhereRedirectBack = "Coworking/CoworkingsList";
 }
-@Html.RenderPartialAsync("DisplayCoworkingList", Model);
+
+
+    <a class="" asp-controller="Coworking" asp-action="CreateCoworking">Add coworking</a>
+
+
+@{
+    Html.RenderPartial("DisplayCoworkingList", Model);
+}
