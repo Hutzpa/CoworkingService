@@ -1,6 +1,10 @@
-﻿@model CoworkingListViewModel
-
-
+﻿
+@using Microsoft.AspNetCore.Identity
+@model CoworkingListViewModel
+@inject UserManager<User> _userManager
+@{
+    var userId = _userManager.GetUserAsync(User).GetAwaiter().GetResult().Id;
+}
 <table class="table table-striped">
     <thead>
         <tr>
@@ -32,6 +36,12 @@
                 <td>
                     @coworking.IsOpen
                 </td>
+                @if (coworking.IsOpen && @userId != coworking.OwnerId)
+                {
+                    <td>
+                        <a asp-controller="User" asp-action="AddUserToCoworking" asp-route-coworkingId="@coworking.Id" asp-route-userId="@userId">Update</a>
+                    </td>
+                }
                 <td>
                     <a asp-controller="Coworking" asp-action="CreateCoworking" asp-route-id="@coworking.Id">Update</a>
                 </td>

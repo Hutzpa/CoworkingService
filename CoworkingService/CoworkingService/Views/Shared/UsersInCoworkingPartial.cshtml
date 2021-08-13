@@ -1,0 +1,70 @@
+﻿@model List<UserInCoworking>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Phone
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            IsBanned
+        </th>
+        <th>
+            Ban from coworking
+        </th>
+        <th>
+            Time spended
+        </th>
+        <th>
+            Unpayed time spended
+        </th>
+        <th>
+            How much own
+        </th>
+        <th>
+            He paid
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var uic in Model)
+        {
+            var rowStyle = uic.IsBanned ? "table-dark" : "table-light";
+            <tr class=@rowStyle>
+                <td>
+                    @uic.User.Name
+                </td>
+                <td>
+                    @uic.User.Phone
+                </td>
+                <td>
+                    @uic.User.Email
+                </td>
+                <td>
+                    @uic.IsBanned
+                </td>
+                <td>
+                    <a asp-controller="Used" asp-action="BanUserFromCoworking" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">Ban from this coworking</a>
+                </td>
+                <td>
+                    @uic.TotalTimeSpended.ToShortTimeString()
+                </td>
+                <td>
+                    @uic.UnpayedTimeSpended.ToShortTimeString();
+                </td>
+                <td>
+
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>

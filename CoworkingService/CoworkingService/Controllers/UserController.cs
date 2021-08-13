@@ -38,6 +38,9 @@ namespace CoworkingService.Controllers
 
         public async Task<IActionResult> AddUserToCoworkingAsync(string userId, int coworkingId)
         {
+            var userInCow = await dbContext.UsersInCoworkings.FirstOrDefaultAsync(o => o.UserId == userId && o.CoworkingId == coworkingId);
+            if (userInCow != null) return RedirectToAction("Coworking", "Coworking", new { id = coworkingId });
+
             dbContext.UsersInCoworkings.Add(new UserInCoworking
             {
                 CoworkingId = coworkingId,
@@ -49,8 +52,21 @@ namespace CoworkingService.Controllers
 
         public async Task<IActionResult> GetUsersInCoworkingAsync(int coworkingId)
         {
-          var users = await dbContext.UsersInCoworkings.Where(o => o.CoworkingId == coworkingId).Select(o => o.User).ToListAsync();
-            return 
+            var users = await dbContext.UsersInCoworkings.Where(o => o.CoworkingId == coworkingId).Select(o => o.User).ToListAsync();
+            return null;
+        }
+
+        public async Task<IActionResult> BanUserFromCoworkingAsync(int coworkingId, string userId)
+        {
+            var userInCoworking = await 
+                dbContext.UsersInCoworkings.FirstOrDefaultAsync(o =>
+                    o.CoworkingId == coworkingId && o.UserId == userId);
+
+            userInCoworking.IsBanned = !userInCoworking.IsBanned;
+
+            dbContext.UsersInCoworkings.Update(userInCoworking);
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction("Coworking", "Coworking", new { id = coworkingId });
         }
     }
 }
