@@ -26,4 +26,13 @@ namespace CoworkingService.Models
         public DateTime From { get; set; }
         public DateTime To { get; set; }
     }
+
+
+
+    public class RoomsInCoworking
+    {
+        public List<Room> Rooms { get; set; }
+
+        public bool DisplayAdminFeatures { get; set; }
+    }
 }

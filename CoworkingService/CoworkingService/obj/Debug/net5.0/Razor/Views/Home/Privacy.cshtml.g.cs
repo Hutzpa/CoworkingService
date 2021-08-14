@@ -40,8 +40,36 @@ using CoworkingService.Constants;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\_ViewImports.cshtml"
+using CoworkingService.Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\_ViewImports.cshtml"
+using Microsoft.EntityFrameworkCore;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\Views\_ViewImports.cshtml"
+using CoworkingService.Helpers;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d8ddb6bffa5a9b264bf8f89038bf03c234083fd3", @"/Views/Home/Privacy.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2ca162f05eb3c90bbc52d7ce5ec6d658db544b6e", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d550ed3a9543d3edf84874837b8b5f9910f696e9", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Privacy : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

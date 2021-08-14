@@ -34,23 +34,34 @@
                     @coworking.Cost
                 </td>
                 <td>
-                    @coworking.IsOpen
+                    @if (coworking.IsOpen)
+                    {
+                        <label>This coworking is open</label>
+                    }
+                    else
+                    {
+                        <label>This coworking is closed</label>
+                    }
+
                 </td>
                 @if (coworking.IsOpen && @userId != coworking.OwnerId)
                 {
                     <td>
-                        <a asp-controller="User" asp-action="AddUserToCoworking" asp-route-coworkingId="@coworking.Id" asp-route-userId="@userId">Update</a>
+                        <a asp-controller="User" asp-action="AddUserToCoworking" asp-route-coworkingId="@coworking.Id" asp-route-userId="@userId">Join the coworking</a>
                     </td>
                 }
-                <td>
-                    <a asp-controller="Coworking" asp-action="CreateCoworking" asp-route-id="@coworking.Id">Update</a>
-                </td>
-                <td>
-                    <a asp-controller="Coworking" asp-action="CloseCoworking" asp-route-id="@coworking.Id" asp-route-whereCameFrom="@Model.WhereRedirectBack">Open or close</a>
-                </td>
-                <td>
-                    <a asp-controller="Coworking" asp-action="DeleteCoworking" asp-route-id="@coworking.Id">Delete</a>
-                </td>
+                @if (userId == coworking.OwnerId)
+                {
+                    <td>
+                        <a asp-controller="Coworking" asp-action="CreateCoworking" asp-route-id="@coworking.Id">Update</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Coworking" asp-action="CloseCoworking" asp-route-id="@coworking.Id" asp-route-whereCameFrom="@Model.WhereRedirectBack">Open or close</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Coworking" asp-action="DeleteCoworking" asp-route-id="@coworking.Id">Delete</a>
+                    </td>
+                }
             </tr>
         }
     </tbody>

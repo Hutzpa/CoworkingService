@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
+@inject UserManager<User> _userManager
+@{
+
+    string userId = String.Empty;
+    if (User.Identity.IsAuthenticated)
+        userId = _userManager.GetUserAsync(User).GetAwaiter().GetResult().Id;
+
+}
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -21,15 +29,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Coworking" asp-action="CoworkingsList">COw list</a>
-                        </li>
-                        <li class="nav-item">
-                            <form asp-controller="Coworking" asp-action="SearchResult">
-                                <input type="text" name="query" />
-                                
-                            </form>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole(RoleConstants.AdminUser))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Coworking" asp-action="CoworkingsList">My coworkings</a>
+                                </li>
+                            }
+                            else if (User.IsInRole(RoleConstants.RegularUser))
+                            {
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Coworking" asp-action="CoworkingsOfUser" asp-route-userId="@userId">My coworkings</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <form asp-controller="Coworking" asp-action="SearchResult">
+                                    <input type="text" name="query" />
+
+                                </form>
+                            </li>
+                        }
 
                         <li class="nav-item">
                             <partial name="_SelectLanguagePartial" />

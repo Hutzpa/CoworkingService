@@ -1,0 +1,6 @@
+﻿@model List<Coworking>
+
+
+@{
+    Html.RenderPartial("DisplayCoworkingList", new CoworkingListViewModel { Coworkings = Model });
+}

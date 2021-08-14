@@ -5,7 +5,9 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @{ 
-    var userName = UserManager.GetUserAsync(User).GetAwaiter().GetResult().Name;
+    string userName = "";
+    if(User.Identity.IsAuthenticated)
+        userName = UserManager.GetUserAsync(User).GetAwaiter().GetResult().Name;
 }
 
 <ul class="navbar-nav">

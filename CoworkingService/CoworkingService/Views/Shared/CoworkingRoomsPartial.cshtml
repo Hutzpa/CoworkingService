@@ -1,6 +1,6 @@
-﻿@model List<Room>
+﻿@model RoomsInCoworking
 
-<table>
+<table class="table table-borderless">
     <thead>
         <tr>
             <th>
@@ -9,19 +9,23 @@
             <th>
                 Seats count
             </th>
-            <th>
-                Update
-            </th>
-            <th>
-                View
-            </th>
-            <th>
-                Delete
-            </th>
+            @if (Model.DisplayAdminFeatures)
+            {
+                <th>
+                    Update
+                </th>
+                <th>
+                    View
+                </th>
+                <th>
+                    Delete
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
-        @foreach(var room in Model){
+        @foreach (var room in Model.Rooms)
+        {
             <tr>
                 <td>
                     @room.Id
@@ -29,19 +33,22 @@
                 <td>
                     @room.SeatsCount
                 </td>
-                <td>
-                    
-                    <form asp-controller="Room" asp-action="AddRoom" asp-route-id="@room.Id" asp-route-coworkingId="@room.CoworkingId">
-                        <input name="seatsCount" type="number" min="1" required />
-                        <input type="submit" value="Update room" />
-                    </form>
-                </td>
-                <td>
-                    <a asp-controller="Room" asp-action="Room" asp-route-id="@room.Id">To this room</a>
-                </td> 
-                <td>
-                    <a asp-controller="Room" asp-action="DeleteRoom" asp-route-id="@room.Id">Delete room</a>
-                </td>
+                @if (Model.DisplayAdminFeatures)
+                {
+                    <td>
+
+                        <form asp-controller="Room" asp-action="AddRoom" asp-route-id="@room.Id" asp-route-coworkingId="@room.CoworkingId">
+                            <input name="seatsCount" type="number" min="1" required />
+                            <input type="submit" value="Update room" />
+                        </form>
+                    </td>
+                    <td>
+                        <a asp-controller="Room" asp-action="Room" asp-route-id="@room.Id">To this room</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Room" asp-action="DeleteRoom" asp-route-id="@room.Id">Delete room</a>
+                    </td>
+                }
             </tr>
         }
     </tbody>

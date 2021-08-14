@@ -1,8 +1,10 @@
-﻿@model List<UserInCoworking>
+﻿@using CoworkingService.Helpers
+@model List<UserInCoworking>
 
+@inject ICalculateUserDebt calculator;
 
-<table>
-    <thead>
+<table class="table table-bordered">
+    <thead class="thead-dark">
     <tr>
         <th>
             Name
@@ -31,6 +33,9 @@
         <th>
             He paid
         </th>
+        <th>
+            Add unpayed hours
+        </th>
     </tr>
     </thead>
     <tbody>
@@ -51,19 +56,26 @@
                     @uic.IsBanned
                 </td>
                 <td>
-                    <a asp-controller="Used" asp-action="BanUserFromCoworking" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">Ban from this coworking</a>
+                    <a asp-controller="User" asp-action="BanUserFromCoworking" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">Ban from this coworking</a>
                 </td>
                 <td>
-                    @uic.TotalTimeSpended.ToShortTimeString()
+                    @uic.TotalTimeSpended
                 </td>
                 <td>
-                    @uic.UnpayedTimeSpended.ToShortTimeString();
+                    @uic.UnpayedHoursSpended
                 </td>
                 <td>
-
+                    @await calculator.CalculateAsync(uic.CoworkingId, uic.UserId)
                 </td>
-
-
+                <td>
+                    <a asp-controller="User" asp-action="UserPaidHisTime" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">User paid his hours</a>
+                </td>
+                <td>
+                    <form asp-controller="User" asp-action="AddUnpayedHours" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">
+                        <input name="hours" type="number" required min="1" />
+                        <input type="submit"/>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

@@ -7,18 +7,18 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CoworkingService.Data.Migrations
+namespace CoworkingService.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210801192713_Init")]
-    partial class Init
+    [Migration("20210814204301_TimeSpendedFixes")]
+    partial class TimeSpendedFixes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
+                .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CoworkingService.Models.Coworking", b =>
@@ -48,15 +48,42 @@ namespace CoworkingService.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("PaymentType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Photos")
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Coworkings");
+                });
+
+            modelBuilder.Entity("CoworkingService.Models.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CoworkingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coworkings");
+                    b.HasIndex("CoworkingId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("CoworkingService.Models.Room", b =>
@@ -116,11 +143,11 @@ namespace CoworkingService.Data.Migrations
                     b.Property<bool>("IsBanned")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("TotalTimeSpended")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("TotalTimeSpended")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("UnpayedTimeSpended")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("UnpayedHoursSpended")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "CoworkingId");
 
@@ -345,13 +372,36 @@ namespace CoworkingService.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("CoworkingService.Models.Coworking", b =>
+                {
+                    b.HasOne("CoworkingService.Models.User", "Owner")
+                        .WithMany("Coworkings")
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("CoworkingService.Models.Picture", b =>
+                {
+                    b.HasOne("CoworkingService.Models.Coworking", "Coworking")
+                        .WithMany("Photos")
+                        .HasForeignKey("CoworkingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CoworkingService.Models.User", "User")
+                        .WithMany("Photos")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Coworking");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CoworkingService.Models.Room", b =>
@@ -367,23 +417,25 @@ namespace CoworkingService.Data.Migrations
 
             modelBuilder.Entity("CoworkingService.Models.RoomOccupied", b =>
                 {
-                    b.HasOne("CoworkingService.Models.Room", null)
+                    b.HasOne("CoworkingService.Models.Room", "Room")
                         .WithMany("BusyTime")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("CoworkingService.Models.UserInCoworking", b =>
                 {
                     b.HasOne("CoworkingService.Models.Coworking", "Coworking")
-                        .WithMany()
+                        .WithMany("InCoworking")
                         .HasForeignKey("CoworkingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CoworkingService.Models.User", "User")
-                        .WithMany()
+                        .WithMany("InCoworkings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -446,12 +498,25 @@ namespace CoworkingService.Data.Migrations
 
             modelBuilder.Entity("CoworkingService.Models.Coworking", b =>
                 {
+                    b.Navigation("InCoworking");
+
+                    b.Navigation("Photos");
+
                     b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("CoworkingService.Models.Room", b =>
                 {
                     b.Navigation("BusyTime");
+                });
+
+            modelBuilder.Entity("CoworkingService.Models.User", b =>
+                {
+                    b.Navigation("Coworkings");
+
+                    b.Navigation("InCoworkings");
+
+                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,26 +1,74 @@
 ﻿@model Coworking
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> userManager
+@inject ApplicationDbContext dbContext
+@inject ICalculateUserDebt calculator;
+@{
+    string userId = userManager.GetUserId(User);
+    UserInCoworking userInCoworking;
+    bool isUserInCoworking = false;
+    bool canThisUserLeave = false;
+    try
+    {
+
+        userInCoworking = await dbContext.UsersInCoworkings.FirstOrDefaultAsync(o => o.UserId == userId && o.CoworkingId == Model.Id);
+        isUserInCoworking = userInCoworking != null;
+        if (isUserInCoworking)
+            canThisUserLeave = userInCoworking.UnpayedHoursSpended == 0;
+    }
+    catch (Exception ex)
+    {
+
+    }
+}
+
+<h1>
+    @Model.Name
+</h1>
 
 @{await Html.RenderPartialAsync("DisplayPhotoPartial", Model.Photos);}
 
-<form method="post" enctype="multipart/form-data" asp-controller="Coworking" asp-action="UploadPhotosCoworking" asp-route-coworkingId="@Model.Id">
-    <div class="form-group">
-        <div class="col-md-10">
-            <p>Upload photos of your coworking</p>
-            <input type="file" name="files" multiple accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
+@if (userId == Model.OwnerId)
+{
+    <form method="post" enctype="multipart/form-data" asp-controller="Coworking" asp-action="UploadPhotosCoworking" asp-route-coworkingId="@Model.Id">
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>Upload photos of your coworking</p>
+                <input type="file" name="files" multiple accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-10">
-            <input type="submit" value="Upload" />
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Upload" />
+            </div>
         </div>
-    </div>
-</form>
+    </form>
 
 
-<p>Add new room</p>
-<form asp-controller="Room" asp-action="AddRoom" asp-route-coworkingId="@Model.Id">
-    <input name="seatsCount" type="number" min="1" required/>
-    <input type="submit" value="Add room"/>
-</form>
+    <p>Add new room</p>
+    <form asp-controller="Room" asp-action="AddRoom" asp-route-coworkingId="@Model.Id">
+        <input name="seatsCount" type="number" min="1" required />
+        <input type="submit" value="Add room" />
+    </form>
+}
 
-@{await Html.RenderPartialAsync("CoworkingRoomsPartial", Model.Rooms);}
+@{await Html.RenderPartialAsync("CoworkingRoomsPartial", new RoomsInCoworking { Rooms = Model.Rooms, DisplayAdminFeatures = userId == Model.OwnerId });}
+
+
+@if (isUserInCoworking)
+{
+    if (canThisUserLeave)
+    {
+        <a asp-controller="User" asp-action="RemoveUserToCoworking" asp-route-coworkingId="@Model.Id" asp-route-userId="@userId">Leave this coworking</a>
+    }
+    else
+    {
+        <label>You need to pay your bill before leaving</label>
+        <label>Your debt is @await calculator.CalculateAsync(Model.Id, userId)</label>
+    }
+}
+
+@if (userId == Model.OwnerId)
+{
+    await Html.RenderPartialAsync("UsersInCoworkingPartial", Model.InCoworking);
+}

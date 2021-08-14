@@ -51,7 +51,6 @@ E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\Cowo
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\CoworkingService.csprojAssemblyReference.cache
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\CoworkingService.GeneratedMSBuildEditorConfig.editorconfig
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\CoworkingService.AssemblyInfoInputs.cache
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\CoworkingService.AssemblyInfo.cs
@@ -97,3 +96,6 @@ E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\Cowo
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Room\Room.cshtml.g.cs
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Shared\CoworkingRoomsPartial.cshtml.g.cs
 E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Coworking\SearchResult.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Shared\UsersInCoworkingPartial.cshtml.g.cs
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\CoworkingService.csprojAssemblyReference.cache
+E:\GoogleДиск\Учёба\Курсач\CoworkingService\CoworkingService\CoworkingService\obj\Debug\net5.0\Razor\Views\Coworking\CoworkingsOfUser.cshtml.g.cs

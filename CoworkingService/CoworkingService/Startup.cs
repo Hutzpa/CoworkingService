@@ -67,6 +67,7 @@ namespace CoworkingService
 
 
             services.AddTransient<IFileSaveHelper, FileSaveHelper>();
+            services.AddTransient<ICalculateUserDebt, CalculateUserDebt>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

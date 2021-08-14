@@ -50,6 +50,20 @@ namespace CoworkingService.Controllers
             return RedirectToAction("Coworking", "Coworking", new { id = coworkingId });
         }
 
+        public async Task<IActionResult> RemoveUserToCoworkingAsync(string userId, int coworkingId)
+        {
+            var userInCow = await dbContext.UsersInCoworkings.FirstOrDefaultAsync(o => o.UserId == userId && o.CoworkingId == coworkingId);
+            if (userInCow != null) return RedirectToAction("Coworking", "Coworking", new { id = coworkingId });
+
+            if (userInCow.UnpayedHoursSpended != 0)
+                return RedirectToAction("Coworking", "Coworking", new { id = coworkingId });
+
+            dbContext.UsersInCoworkings.Remove(userInCow);
+
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction("Coworking", "Coworking", new { id = coworkingId });
+        }
+
         public async Task<IActionResult> GetUsersInCoworkingAsync(int coworkingId)
         {
             var users = await dbContext.UsersInCoworkings.Where(o => o.CoworkingId == coworkingId).Select(o => o.User).ToListAsync();
@@ -58,11 +72,37 @@ namespace CoworkingService.Controllers
 
         public async Task<IActionResult> BanUserFromCoworkingAsync(int coworkingId, string userId)
         {
-            var userInCoworking = await 
+            var userInCoworking = await
                 dbContext.UsersInCoworkings.FirstOrDefaultAsync(o =>
                     o.CoworkingId == coworkingId && o.UserId == userId);
 
             userInCoworking.IsBanned = !userInCoworking.IsBanned;
+
+            dbContext.UsersInCoworkings.Update(userInCoworking);
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction("Coworking", "Coworking", new { id = coworkingId });
+        }
+
+        public async Task<IActionResult> UserPaidHisTimeAsync(int coworkingId, string userId)
+        {
+            var userInCoworking = await
+             dbContext.UsersInCoworkings.FirstOrDefaultAsync(o =>
+                 o.CoworkingId == coworkingId && o.UserId == userId);
+            userInCoworking.TotalTimeSpended += userInCoworking.UnpayedHoursSpended;
+            userInCoworking.UnpayedHoursSpended = 0;
+
+            dbContext.UsersInCoworkings.Update(userInCoworking);
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction("Coworking", "Coworking", new { id = coworkingId });
+        }
+
+        public async Task<IActionResult> AddUnpayedHoursAsync(int coworkingId, string userId, int hours)
+        {
+            var userInCoworking = await
+           dbContext.UsersInCoworkings.FirstOrDefaultAsync(o =>
+               o.CoworkingId == coworkingId && o.UserId == userId);
+
+            userInCoworking.UnpayedHoursSpended += hours;
 
             dbContext.UsersInCoworkings.Update(userInCoworking);
             await dbContext.SaveChangesAsync();

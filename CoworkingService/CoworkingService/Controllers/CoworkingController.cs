@@ -159,11 +159,16 @@ namespace CoworkingService.Controllers
             return RedirectToAction("Coworking", new { id = coworkingId });
         }
 
-
         public async Task<IActionResult> SearchResultAsync(string query)
         {
             var searchResult = await dbContext.Coworkings.Where(o => o.Name.ToLower().Contains(query) || o.Description.ToLower().Contains(query) && o.IsOpen).ToListAsync();
             return View(searchResult);
+        }
+
+        public async Task<IActionResult> CoworkingsOfUserAsync(string userId)
+        {
+            var coworkings = await dbContext.UsersInCoworkings.Where(o => o.UserId == userId && !o.IsBanned).Select(o => o.Coworking).ToListAsync();
+            return View(coworkings);
         }
     }
 }
