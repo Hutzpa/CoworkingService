@@ -63,12 +63,13 @@
                     </label>
                 </td>
                 <td>
-                    <select asp-for="Role">
+                    <select class="form-control" asp-for="Role">
                         <option value="@RoleConstants.AdminUser">
-                            Coworking owner
+                            @Localizer["Coworking owner"]
+                            
                         </option>
                         <option value="@RoleConstants.RegularUser">
-                            Regular user
+                            @Localizer["Regular user"]
                         </option>
                     </select>
                 </td>

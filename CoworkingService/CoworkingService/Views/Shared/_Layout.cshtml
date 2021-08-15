@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 @inject UserManager<User> _userManager
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
 
     string userId = String.Empty;
@@ -27,27 +29,26 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             @if (User.IsInRole(RoleConstants.AdminUser))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Coworking" asp-action="CoworkingsList">My coworkings</a>
+                                    <a class="nav-link text-dark" asp-controller="Coworking" asp-action="CoworkingsList">@Localizer["My coworkings"]</a>
                                 </li>
                             }
                             else if (User.IsInRole(RoleConstants.RegularUser))
                             {
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Coworking" asp-action="CoworkingsOfUser" asp-route-userId="@userId">My coworkings</a>
+                                    <a class="nav-link text-dark" asp-controller="Coworking" asp-action="CoworkingsOfUser" asp-route-userId="@userId">@Localizer["Home"]</a>
                                 </li>
                             }
                             <li class="nav-item">
                                 <form asp-controller="Coworking" asp-action="SearchResult">
-                                    <input type="text" name="query" />
-
+                                    <input class="form-control" type="text" name="query" placeholder="@Localizer["Coworking you are looking for"]" />
                                 </form>
                             </li>
                         }
@@ -67,11 +68,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - CoworkingService - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+  
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

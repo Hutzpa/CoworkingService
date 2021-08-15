@@ -1,55 +1,65 @@
 ﻿@model RoomsInCoworking
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localization
 
-<table class="table table-borderless">
-    <thead>
-        <tr>
-            <th>
-                Room id
-            </th>
-            <th>
-                Seats count
-            </th>
-            @if (Model.DisplayAdminFeatures)
-            {
-                <th>
-                    Update
-                </th>
-                <th>
-                    View
-                </th>
-                <th>
-                    Delete
-                </th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var room in Model.Rooms)
-        {
+@if (Enumerable.Any(Model.Rooms))
+{
+    <table class="table table-dark">
+        <thead>
             <tr>
-                <td>
-                    @room.Id
-                </td>
-                <td>
-                    @room.SeatsCount
-                </td>
+                <th class="lead">
+                    @Localization["Room id"] 
+                </th>
+                <th class="lead">
+                    @Localization["Seats count"] 
+                </th>
+                <th class="lead">
+                    @Localization["View"] 
+                </th>
                 @if (Model.DisplayAdminFeatures)
                 {
-                    <td>
-
-                        <form asp-controller="Room" asp-action="AddRoom" asp-route-id="@room.Id" asp-route-coworkingId="@room.CoworkingId">
-                            <input name="seatsCount" type="number" min="1" required />
-                            <input type="submit" value="Update room" />
-                        </form>
-                    </td>
-                    <td>
-                        <a asp-controller="Room" asp-action="Room" asp-route-id="@room.Id">To this room</a>
-                    </td>
-                    <td>
-                        <a asp-controller="Room" asp-action="DeleteRoom" asp-route-id="@room.Id">Delete room</a>
-                    </td>
+            <th class="lead">
+                @Localization["Update"] 
+            </th>
+            <th class="lead">
+                @Localization["Delete"] 
+            </th>
                 }
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var room in Model.Rooms)
+            {
+                <tr>
+                    <td class="lead">
+                        @room.Id
+                    </td>
+                    <td class="lead">
+                        @room.SeatsCount
+                    </td>
+                    <td>
+                        <a class="lead" asp-controller="Room" asp-action="Room" asp-route-id="@room.Id">@Localization[""]To this room</a>
+                    </td>
+                    @if (Model.DisplayAdminFeatures)
+                    {
+                        <td>
+
+                            <form asp-controller="Room" asp-action="AddRoom" asp-route-id="@room.Id" asp-route-coworkingId="@room.CoworkingId">
+                                <label>@Localization["New seats count"]</label>
+                                <input name="seatsCount" type="number" min="1" required />
+                                <input type="submit" value="@Localization["Update room"]" />
+                            </form>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" asp-controller="Room" asp-action="DeleteRoom" asp-route-id="@room.Id">@Localization["Delete room"]</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+<h3 class="lead">@Localization["This coworking don't have any rooms"]</h3>
+}

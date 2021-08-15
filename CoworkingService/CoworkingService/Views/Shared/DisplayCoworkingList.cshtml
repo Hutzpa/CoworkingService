@@ -5,64 +5,76 @@
 @{
     var userId = _userManager.GetUserAsync(User).GetAwaiter().GetResult().Id;
 }
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Cost
-            </th>
-            <th>
-                Is active
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var coworking in Model.Coworkings)
-        {
-            var rowStyle = coworking.IsOpen ? "table-light" : "table-dark";
 
-            <tr class=@rowStyle>
-                <td>
-                    <a asp-controller="Coworking" asp-action="Coworking" asp-route-id="@coworking.Id">
-                        @coworking.Name
-                    </a>
-                </td>
-                <td>
-                    @coworking.Cost
-                </td>
-                <td>
-                    @if (coworking.IsOpen)
-                    {
-                        <label>This coworking is open</label>
-                    }
-                    else
-                    {
-                        <label>This coworking is closed</label>
-                    }
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
-                </td>
-                @if (coworking.IsOpen && @userId != coworking.OwnerId)
-                {
-                    <td>
-                        <a asp-controller="User" asp-action="AddUserToCoworking" asp-route-coworkingId="@coworking.Id" asp-route-userId="@userId">Join the coworking</a>
-                    </td>
-                }
-                @if (userId == coworking.OwnerId)
-                {
-                    <td>
-                        <a asp-controller="Coworking" asp-action="CreateCoworking" asp-route-id="@coworking.Id">Update</a>
-                    </td>
-                    <td>
-                        <a asp-controller="Coworking" asp-action="CloseCoworking" asp-route-id="@coworking.Id" asp-route-whereCameFrom="@Model.WhereRedirectBack">Open or close</a>
-                    </td>
-                    <td>
-                        <a asp-controller="Coworking" asp-action="DeleteCoworking" asp-route-id="@coworking.Id">Delete</a>
-                    </td>
-                }
+@if (Enumerable.Any(Model.Coworkings))
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="lead">
+                   @Localizer["Name"] 
+                </th>
+                <th class="lead">
+                    @Localizer["Cost"] 
+                </th>
+                <th class="lead">
+                    @Localizer["Is active"] 
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var coworking in Model.Coworkings)
+            {
+                var rowStyle = coworking.IsOpen ? "table-light" : "table-dark";
+
+                <tr class=@rowStyle>
+                    <td class="lead">
+                        <a asp-controller="Coworking" asp-action="Coworking" asp-route-id="@coworking.Id">
+                            @coworking.Name
+                        </a>
+                    </td>
+                    <td class="lead">
+                        <label>@Localizer["Cost is"] - @coworking.Cost</label>
+
+                    </td>
+                    <td class="lead">
+                        @if (coworking.IsOpen)
+                        {
+                        <label>@Localizer["This coworking is open"]</label>
+                        }
+                        else
+                        {
+                    <label>@Localizer["This coworking is closed"]</label>
+                        }
+
+                    </td>
+                    @if (coworking.IsOpen && @userId != coworking.OwnerId)
+                    {
+                        <td>
+                            <a class="btn btn-success" asp-controller="User" asp-action="AddUserToCoworking" asp-route-coworkingId="@coworking.Id" asp-route-userId="@userId">@Localizer["Join the coworking"]</a>
+                        </td>
+                    }
+                    @if (userId == coworking.OwnerId)
+                    {
+                        <td>
+                            <a class="btn btn-info" asp-controller="Coworking" asp-action="CreateCoworking" asp-route-id="@coworking.Id">@Localizer["Update"]</a>
+                        </td>
+                        <td>
+                            <a lass="btn btn-info" asp-controller="Coworking" asp-action="CloseCoworking" asp-route-id="@coworking.Id" asp-route-whereCameFrom="@Model.WhereRedirectBack">@Localizer["Open or close"]</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" asp-controller="Coworking" asp-action="DeleteCoworking" asp-route-id="@coworking.Id">@Localizer["Delete"]</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+<h3 class="lead">@Localizer["Any coworkings in here"]</h3>
+}

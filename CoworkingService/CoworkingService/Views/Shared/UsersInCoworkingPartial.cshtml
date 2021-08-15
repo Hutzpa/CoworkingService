@@ -3,80 +3,89 @@
 
 @inject ICalculateUserDebt calculator;
 
-<table class="table table-bordered">
-    <thead class="thead-dark">
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Phone
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            IsBanned
-        </th>
-        <th>
-            Ban from coworking
-        </th>
-        <th>
-            Time spended
-        </th>
-        <th>
-            Unpayed time spended
-        </th>
-        <th>
-            How much own
-        </th>
-        <th>
-            He paid
-        </th>
-        <th>
-            Add unpayed hours
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-        @foreach (var uic in Model)
-        {
-            var rowStyle = uic.IsBanned ? "table-dark" : "table-light";
-            <tr class=@rowStyle>
-                <td>
-                    @uic.User.Name
-                </td>
-                <td>
-                    @uic.User.Phone
-                </td>
-                <td>
-                    @uic.User.Email
-                </td>
-                <td>
-                    @uic.IsBanned
-                </td>
-                <td>
-                    <a asp-controller="User" asp-action="BanUserFromCoworking" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">Ban from this coworking</a>
-                </td>
-                <td>
-                    @uic.TotalTimeSpended
-                </td>
-                <td>
-                    @uic.UnpayedHoursSpended
-                </td>
-                <td>
-                    @await calculator.CalculateAsync(uic.CoworkingId, uic.UserId)
-                </td>
-                <td>
-                    <a asp-controller="User" asp-action="UserPaidHisTime" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">User paid his hours</a>
-                </td>
-                <td>
-                    <form asp-controller="User" asp-action="AddUnpayedHours" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">
-                        <input name="hours" type="number" required min="1" />
-                        <input type="submit"/>
-                    </form>
-                </td>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@if (Enumerable.Any(Model))
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th class="lead">
+                   @Localizer["Name"] 
+                </th>
+                <th class="lead">
+                    @Localizer["Phone"] 
+                </th>
+                <th class="lead">
+                    @Localizer["Email"] 
+                </th>
+                <th class="lead">
+                    @Localizer["IsBanned"] 
+                </th>
+                <th class="lead">
+                    @Localizer["Ban from coworking"] 
+                </th>
+                <th class="lead">
+                    @Localizer["Time spended"] 
+                </th>
+                <th class="lead">
+                    @Localizer["Unpayed time spended"] 
+                </th>
+                <th class="lead">
+                    @Localizer["How much own"] 
+                </th>
+                <th class="lead">
+                    @Localizer["He paid"] 
+                </th>
+                <th class="lead">
+                    @Localizer["Add unpayed hours"] 
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var uic in Model)
+            {
+                var rowStyle = uic.IsBanned ? "table-dark" : "table-light";
+                <tr class=@rowStyle>
+                    <td class="lead">
+                        @uic.User.Name
+                    </td>
+                    <td class="lead">
+                        @uic.User.Phone
+                    </td>
+                    <td class="lead">
+                        @uic.User.Email
+                    </td>
+                    <td class="lead">
+                        @uic.IsBanned
+                    </td>
+                    <td class="lead">
+                        <a asp-controller="User" asp-action="BanUserFromCoworking" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">@Localizer["Ban from this coworking"]</a>
+                    </td>
+                    <td class="lead">
+                        @uic.TotalTimeSpended
+                    </td>
+                    <td class="lead">
+                        @uic.UnpayedHoursSpended
+                    </td>
+                    <td class="lead">
+                        @await calculator.CalculateAsync(uic.CoworkingId, uic.UserId)
+                    </td>
+                    <td class="lead">
+                        <a class="btn btn-success" asp-controller="User" asp-action="UserPaidHisTime" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">@Localizer["User paid his hours"]</a>
+                    </td>
+                    <td class="lead">
+                        <form asp-controller="User" asp-action="AddUnpayedHours" asp-route-coworkingId="@uic.CoworkingId" asp-route-userId="@uic.UserId">
+                            <input name="hours" type="number" required min="1" />
+                            <input type="submit" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+<h3 class="lead">@Localizer["Not a single person in here"]</h3>
+}

@@ -1,11 +1,15 @@
 ﻿@model CoworkingListViewModel
 
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
     Model.WhereRedirectBack = "Coworking/CoworkingsList";
 }
 
 
-    <a class="" asp-controller="Coworking" asp-action="CreateCoworking">Add coworking</a>
+<a class="btn btn-info mb-2" asp-controller="Coworking" asp-action="CreateCoworking">@Localizer["Add coworking"]</a>
 
 
 @{

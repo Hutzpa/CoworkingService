@@ -319,6 +319,14 @@
         "runtime": {
           "CoworkingService.dll": {}
         },
+        "resources": {
+          "en/CoworkingService.resources.dll": {
+            "locale": "en"
+          },
+          "uk/CoworkingService.resources.dll": {
+            "locale": "uk"
+          }
+        },
         "compile": {
           "CoworkingService.dll": {}
         }

@@ -62,6 +62,7 @@ namespace CoworkingService.Controllers
             }
             else
             {
+                model.Owner = await _userManager.GetUserAsync(User);
                 dbContext.Coworkings.Update(model);
                 await dbContext.SaveChangesAsync();
             }

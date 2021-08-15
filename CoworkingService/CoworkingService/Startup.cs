@@ -48,7 +48,6 @@ namespace CoworkingService
 
             
             //Локализация
-            services.AddControllersWithViews().AddViewLocalization();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddMvc().AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix);
@@ -64,7 +63,8 @@ namespace CoworkingService
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
-
+            services.AddControllersWithViews().AddViewLocalization();
+            services.AddRazorPages();
 
             services.AddTransient<IFileSaveHelper, FileSaveHelper>();
             services.AddTransient<ICalculateUserDebt, CalculateUserDebt>();

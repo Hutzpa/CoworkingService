@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace CoworkingService.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private ApplicationDbContext dbContext;
