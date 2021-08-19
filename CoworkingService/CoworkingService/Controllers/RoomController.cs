@@ -64,7 +64,7 @@ namespace CoworkingService.Controllers
                 ModelState.AddModelError("To", "Correct the time");
                 return View(model);
             }
-            var allBookingsForThisRoom = await dbContext.RoomOccupieds.Where(o => o.RoomId == model.RoomId && o.From > DateTime.Now).ToListAsync();
+            var allBookingsForThisRoom = await dbContext.RoomOccupieds.Where(o => o.RoomId == model.Id && o.From > DateTime.Now).ToListAsync();
             if (IsRoomBusyAtThisTime(allBookingsForThisRoom, model.From, model.To))
             {
                 ModelState.AddModelError("From", "Room is already booked on this time");
@@ -92,7 +92,7 @@ namespace CoworkingService.Controllers
         public async Task<IActionResult> RoomAsync(int id)
         {
             var room = await dbContext.Rooms.FirstOrDefaultAsync(o => o.Id == id);
-
+            room.RoomOccupations = await GetAllBookingsAsync(room.Id);
             return View(room);
         }
 
@@ -105,7 +105,7 @@ namespace CoworkingService.Controllers
         }
 
 
-        public async Task<IActionResult> GetAllBookingsAsync(int roomId)
+        private async Task<List<RoomOccupiedEvent>> GetAllBookingsAsync(int roomId)
         {
             var bookings =await dbContext.RoomOccupieds.Where(o => o.RoomId == roomId).Select(o => new RoomOccupiedEvent
             {
@@ -115,7 +115,7 @@ namespace CoworkingService.Controllers
                 EndDate = o.To.ToString("MM/dd/yyyy")
             }).ToListAsync();
 
-            return new JsonResult(bookings);
+            return bookings;
         }
     }
 }

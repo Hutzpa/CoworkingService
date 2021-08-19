@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CoworkingService.Models
@@ -15,10 +17,25 @@ namespace CoworkingService.Models
         public virtual Coworking Coworking { get; set; }
         public int SeatsCount { get; set; }
         public virtual List<RoomOccupied> BusyTime { get; set; }
+
+        [NotMapped]
+        public List<RoomOccupiedEvent> RoomOccupations { get; set; }
+
+     
     }
 
     public class RoomOccupied
     {
+        public RoomOccupied()
+        {
+
+        }
+
+        public RoomOccupied(int RoomId)
+        {
+            this.RoomId = RoomId;
+        }
+
         public int Id { get; set; }
 
         public virtual Room Room { get; set; }

@@ -4,12 +4,14 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
+<label>Model - @Model.RoomId </label>
 <form asp-action="BookTheRoom" asp-controller="Room" method="post">
 
     <table align="center">
         <tbody>
             <tr>
                 <td>
+                    <input type="hidden" asp-for="RoomId"/>
                     <label class="mb-2 mt-2 lead">
                         @Localizer["Title"]
                     </label>
