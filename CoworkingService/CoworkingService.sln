@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoworkingService", "CoworkingService\CoworkingService.csproj", "{60454C78-5D88-4B50-B7D8-761325E1AC20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoworkingService", "CoworkingService\CoworkingService.csproj", "{60454C78-5D88-4B50-B7D8-761325E1AC20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iot", "Iot\Iot.csproj", "{044F7A71-2E7E-44BB-8127-3F8DFD73C92E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{60454C78-5D88-4B50-B7D8-761325E1AC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60454C78-5D88-4B50-B7D8-761325E1AC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60454C78-5D88-4B50-B7D8-761325E1AC20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{044F7A71-2E7E-44BB-8127-3F8DFD73C92E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{044F7A71-2E7E-44BB-8127-3F8DFD73C92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{044F7A71-2E7E-44BB-8127-3F8DFD73C92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{044F7A71-2E7E-44BB-8127-3F8DFD73C92E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
