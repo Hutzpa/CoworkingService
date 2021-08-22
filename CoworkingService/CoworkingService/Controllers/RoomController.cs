@@ -92,7 +92,7 @@ namespace CoworkingService.Controllers
         public async Task<IActionResult> RoomAsync(int id)
         {
             var room = await dbContext.Rooms.FirstOrDefaultAsync(o => o.Id == id);
-            room.RoomOccupations = await GetAllBookingsAsync(room.Id);
+            //room.RoomOccupations = await GetAllBookingsAsync(room.Id);
             return View(room);
         }
 
@@ -105,17 +105,20 @@ namespace CoworkingService.Controllers
         }
 
 
-        private async Task<List<RoomOccupiedEvent>> GetAllBookingsAsync(int roomId)
+        [HttpGet]
+        public JsonResult GetAllBookingsAsync(int roomId)
         {
-            var bookings =await dbContext.RoomOccupieds.Where(o => o.RoomId == roomId).Select(o => new RoomOccupiedEvent
+            var bookings = dbContext.RoomOccupieds.Where(o => o.RoomId == roomId).Select(o => new RoomOccupiedEvent
             {
+                Id = o.Id,
                 Title = o.Title,
                 Description = o.Description,
-                StartDate = o.From.ToString("MM/dd/yyyy"),
-                EndDate = o.To.ToString("MM/dd/yyyy")
-            }).ToListAsync();
+                Start = o.From.ToString("yyyy/MM/dd h:mm "),
+                End = o.To.ToString("yyyy/MM/dd h:mm "),
+            }).ToList();
 
-            return bookings;
+            // return new JsonResult { Data = bookings , JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult(bookings);
         }
     }
 }

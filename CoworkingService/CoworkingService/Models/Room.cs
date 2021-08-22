@@ -47,9 +47,9 @@ namespace CoworkingService.Models
         public string Description { get; set; }
 
         [Required]
-        public DateTime From { get; set; }
+        public DateTime From { get; set; } = DateTime.Now;
         [Required]
-        public DateTime To { get; set; }
+        public DateTime To { get; set; } = DateTime.Now;
     }
 
     public class RoomOccupiedEvent
@@ -60,8 +60,10 @@ namespace CoworkingService.Models
 
         public string Description { get; set; }
 
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
+        public string ThemeColor { get; set; } = "green";
+        public bool IsFullDay { get; set; } = false;
     }
 
     public class RoomsInCoworking

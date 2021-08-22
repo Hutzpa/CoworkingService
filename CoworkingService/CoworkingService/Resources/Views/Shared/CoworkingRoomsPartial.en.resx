@@ -135,6 +135,9 @@
   <data name="This coworking don't have any rooms" xml:space="preserve">
     <value>This coworking don't have any rooms</value>
   </data>
+  <data name="To this room" xml:space="preserve">
+    <value>To this room</value>
+  </data>
   <data name="Update room" xml:space="preserve">
     <value>Update room</value>
   </data>
