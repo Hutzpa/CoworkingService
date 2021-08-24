@@ -25,7 +25,7 @@ namespace CoworkingService.Models
         public decimal Cost { get; set; }
         public bool IsOpen { get; set; } = true;
         public string Description { get; set; }
-
+        public int PeopleCurrentlyIn { get; set; } = 0;
 
         public virtual List<Picture> Photos { get; set; }
 

@@ -126,6 +126,9 @@
   <data name="Leave this coworking" xml:space="preserve">
     <value>Leave this coworking</value>
   </data>
+  <data name="people currently in this coworking" xml:space="preserve">
+    <value>people currently in this coworking</value>
+  </data>
   <data name="Upload" xml:space="preserve">
     <value>Upload</value>
   </data>
