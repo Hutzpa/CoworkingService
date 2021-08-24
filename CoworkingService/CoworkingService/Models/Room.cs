@@ -49,7 +49,7 @@ namespace CoworkingService.Models
         [Required]
         public DateTime From { get; set; } = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, DateTime.UtcNow.Hour, 0, 0);
         [Required]
-        public DateTime To { get; set; } = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, DateTime.UtcNow.Hour, 0, 0);
+        public DateTime To { get; set; } = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, DateTime.UtcNow.Hour+1 >= 24 ? 0 : DateTime.UtcNow.Hour +1, 0, 0);
     }
 
     public class RoomOccupiedEvent

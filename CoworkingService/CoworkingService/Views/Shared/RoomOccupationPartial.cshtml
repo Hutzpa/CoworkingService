@@ -4,7 +4,8 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
-<form asp-action="BookTheRoom" asp-controller="Room" method="post">
+<form asp-action="BookTheRoom" asp-controller="Room" method="post"
+      id="roomOccupationPartialForm" data-ajax="true" data-ajax-update="#partialform" data-ajax-mode="replace">
 
     <table align="center">
         <tbody>
@@ -16,7 +17,7 @@
                     </label>
                 </td>
                 <td>
-                    <input class="form-control" asp-for="Title" />
+                    <input class="form-control" required type="text" asp-for="Title" />
                     <span class="text-danger" asp-validation-for="Title"></span>
 
                 </td>
@@ -28,7 +29,7 @@
                     </label>
                 </td>
                 <td>
-                    <input class="form-control" asp-for="Description" />
+                    <input class="form-control" required type="text" asp-for="Description" />
                     <span class="text-danger" asp-validation-for="Description"></span>
 
                 </td>
