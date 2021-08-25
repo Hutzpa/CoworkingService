@@ -1,4 +1,5 @@
-﻿using CoworkingService.Data;
+﻿using CoworkingService.Constants;
+using CoworkingService.Data;
 using CoworkingService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,12 +20,15 @@ namespace CoworkingService.Controllers.ApiControllers
 
         private SignInManager<User> _signInManager;
         private ApplicationDbContext _context;
-
-        public AuthApiController(ApplicationDbContext context,
-            SignInManager<User> signInManager)
+        private RoleManager<IdentityRole> _roleManager;
+        private UserManager<User> _userManager;
+        public AuthApiController(UserManager<User> userManager, ApplicationDbContext context,
+            SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _context = context;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
         // GET: api/Auth
         [HttpGet]
@@ -34,7 +38,10 @@ namespace CoworkingService.Controllers.ApiControllers
             if (res.Succeeded)
             {
                 User user = await _context.Users.FirstOrDefaultAsync(o => o.UserName == login);
-                return user.Id;
+
+                return await _userManager.IsInRoleAsync(user, RoleConstants.AdminUser) ? user.Id : "";
+
+                //return user.Id;
             }
             return "";
         }
